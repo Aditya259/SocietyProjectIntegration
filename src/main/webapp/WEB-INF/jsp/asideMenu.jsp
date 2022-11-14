@@ -95,20 +95,20 @@
          <li class="treeview">
             <a href='#'><img src="dist/img/icon/ico-7.png" style="margin-right: 5px;"/><span>Loan Section</span><span class="pull-right-container">  <i class="fa fa-angle-left pull-right"></i></span></a>
             <ul class="treeview-menu">
-               <li><a href="LoanPlanf159.html?Type=Normal"><i class="fa fa-circle-o"></i>Loan Plan Creation</a></li>
-               <li><a href="LoanCalculator.html"><i class="fa fa-circle-o"></i>Loan Calculator</a></li>
-               <li><a href="LoanApplication7475.html?Type=Application"><i class="fa fa-circle-o"></i>Loan Application</a></li>
-               <li><a href="LoanApplication9c5a.html?Type=Approval"><i class="fa fa-circle-o"></i>Loan Authorized</a></li>
-               <li><a href="LoanApplicationf780.html?Type=Payment"><i class="fa fa-circle-o"></i>Loan Payment Section</a></li>
-               <li><a href="LoanRepaymentf159.html?Type=Normal"><i class="fa fa-circle-o"></i>Regular Emi Re-payment</a></li>
-               <li><a href="IrregularEMIPaymentEntryf159.html?Type=Normal"><i class="fa fa-circle-o"></i>Irregular Emi Re-payment</a></li>
-               <li><a href="RegularLoanStatementf159.html?Type=Normal"><i class="fa fa-circle-o"></i>Regular Loan Statement</a></li>
-               <li><a href="IrregularLoanStatementf159.html?Type=Normal"><i class="fa fa-circle-o"></i>Irregular Loan Statement</a></li>
-               <li><a href="RegularLoanDocumentPrint.html"><i class="fa fa-circle-o"></i>Loan Document Print</a></li>
-               <li><a href="LoanPreSettlementf159.html?Type=Normal"><i class="fa fa-circle-o"></i>Pre Settlement</a></li>
-               <li><a href="ClosedLoanReportf159.html?Type=Normal"><i class="fa fa-circle-o"></i>Closed loan Details</a></li>
-               <li><a href="LoanNocf159.html?Type=Normal"><i class="fa fa-circle-o"></i>NOC Certificate</a></li>
-               <li><a href="LoanSearch.html"><i class="fa fa-circle-o"></i>Search Loan</a></li>
+               <li><a href="LoanPlan"><i class="fa fa-circle-o"></i>Loan Plan Creation</a></li>
+               <li><a href="LoanCalculator"><i class="fa fa-circle-o"></i>Loan Calculator</a></li>
+               <li><a href="LoanApplication"><i class="fa fa-circle-o"></i>Loan Application</a></li>
+               <li><a href="loanApplication9c5a"><i class="fa fa-circle-o"></i>Loan Authorized</a></li>
+               <li><a href="loanApplicationf780"><i class="fa fa-circle-o"></i>Loan Payment Section</a></li>
+               <li><a href="loanRepaymentf159"><i class="fa fa-circle-o"></i>Regular Emi Re-payment</a></li>
+               <li><a href="irregularEMIPaymentEntryf159"><i class="fa fa-circle-o"></i>Irregular Emi Re-payment</a></li>
+               <li><a href="regularLoanStatementf159"><i class="fa fa-circle-o"></i>Regular Loan Statement</a></li>
+               <li><a href="irregularLoanStatementf159"><i class="fa fa-circle-o"></i>Irregular Loan Statement</a></li>
+               <li><a href="regularLoanDocumentPrint"><i class="fa fa-circle-o"></i>Loan Document Print</a></li>
+               <li><a href="loanPreSettlementf159"><i class="fa fa-circle-o"></i>Pre Settlement</a></li>
+               <li><a href="closedLoanReportf159"><i class="fa fa-circle-o"></i>Closed loan Details</a></li>
+               <li><a href="loanNocf159"><i class="fa fa-circle-o"></i>NOC Certificate</a></li>
+               <li><a href="loanSearch"><i class="fa fa-circle-o"></i>Search Loan</a></li>
             </ul>
          </li>
          <li class="treeview">

@@ -6,6 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+
+
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -16,9 +19,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.society.application.model.AddInvestment;
+import com.society.application.model.Advisor;
 import com.society.application.model.AdvisorCollectorDetails;
 import com.society.application.model.BranchMaster;
 import com.society.application.model.CollectorPromotionDto;
@@ -28,7 +35,9 @@ import com.society.application.model.DesignationMaster;
 import com.society.application.model.Employee;
 import com.society.application.model.FixedDeposit;
 import com.society.application.model.GenericGetById;
+import com.society.application.model.GoldLoanPlanMaster;
 import com.society.application.model.KYCMaster;
+import com.society.application.model.LoanPlanMaster;
 import com.society.application.model.Login;
 import com.society.application.model.MISDeposit;
 import com.society.application.model.MartialStatus;
@@ -42,6 +51,7 @@ import com.society.application.model.ReportDataAdvisor;
 import com.society.application.model.ShareAllocationMaster;
 import com.society.application.model.ShareTransferDto;
 import com.society.application.model.StateMaster;
+import com.society.application.model.TodaysRateMaster;
 import com.society.application.repository.AddInvestmentRepo;
 import com.society.application.repository.AdvisorCollectorDetailsRepo;
 import com.society.application.repository.AdvisorRepo;
@@ -51,7 +61,9 @@ import com.society.application.repository.DepartmentMasterRepo;
 import com.society.application.repository.DesignationMasterRepo;
 import com.society.application.repository.EmployeeRepo;
 import com.society.application.repository.FixedDepositRepo;
+import com.society.application.repository.GoldLoanPlanRepo;
 import com.society.application.repository.KYCMasterRepo;
+import com.society.application.repository.LoanPlanRepo;
 import com.society.application.repository.LoginRepo;
 import com.society.application.repository.MISDepositRepo;
 import com.society.application.repository.MartialStatusRepo;
@@ -62,12 +74,16 @@ import com.society.application.repository.RecurringDepositRepo;
 import com.society.application.repository.RelativeRelationMasterRepo;
 import com.society.application.repository.ShareAllocationMasterRepo;
 import com.society.application.repository.StateMasterRepo;
+import com.society.application.repository.TodaysRateMasterRepo;
 
 @Controller
 public class HomeControler {
 
 	@Autowired
 	MemberRepo memberRepo;
+	@Autowired
+	LoanPlanRepo loanPlanMasterRepo;
+	
 
 	@Autowired
 	BranchMasterRepo branchMasterRepo;
@@ -125,6 +141,59 @@ public class HomeControler {
 
 	@Autowired
 	MISDepositRepo mISDepositRepo;
+	
+	@Autowired
+	GoldLoanPlanRepo goldLoanPlanRepo;
+	
+	@Autowired
+	TodaysRateMasterRepo todaysRateMasterRepo;
+	
+	
+	@GetMapping("/addAdvisor")
+	public String addAdvisor(Model model) {
+		List<Member> allMember = memberRepo.findAll();
+		model.addAttribute("allMember", allMember);
+		return "collector/AddAdvisor";
+	}
+
+	/*
+	 * @PostMapping("/addAdvisor") public String
+	 * addAdvisor(@ModelAttribute("advisor") Advisor advisor,Model model) {
+	 * advisorRepo.save(advisor); return "collector/AddAdvisor"; }
+	 */
+	
+	/*
+	 * @GetMapping("/addEmployee") public String addEmployee() { return
+	 * "employee/AddEmployee"; }
+	 */
+	
+	
+	@GetMapping("/EmployeeIDCardPrinting")
+	public String EmployeeIDCardPrinting() {
+		return "employee/EmployeeIDCardPrinting";
+	}
+	
+	
+	
+	@GetMapping("/LoanPlan")
+	public String LoanPlan() {
+		return "Loan_Section/LoanPlan";
+	}
+	
+	@PostMapping("Loan_Plan")
+	public String LoanPlan(@ModelAttribute("loanPlan")LoanPlanMaster loanPlanMaster, Model model) {
+		loanPlanMasterRepo.save(loanPlanMaster);
+		return "Loan_Section/LoanPlan";
+	}
+	
+	@GetMapping("/LoanCalculator")
+	public String LoanCalculator() {
+		return "Loan_Section/LoanCalculator";
+		
+		
+	}
+	
+	
 
 	@GetMapping("/addMember")
 	public String addMember() {
@@ -137,10 +206,10 @@ public class HomeControler {
 		return "index";
 	}
 
-	@GetMapping("/addAdvisor")
-	public String addAdvisor() {
-		return "advisor/addAdvisor";
-	}
+	/*
+	 * @GetMapping("/addAdvisor") public String addAdvisor() { return
+	 * "advisor/addAdvisor"; }
+	 */
 
 	@GetMapping("/advisorDownLine")
 	public String advisorDownLine() {
@@ -167,119 +236,85 @@ public class HomeControler {
 		return "advisor/advisorTree";
 	}
 
-	@GetMapping("/planMaster")
-	public String planMaster() {
-		return "investmentSection/PlanMaster";
-	}
-
-	@GetMapping("/addInvestment")
-	public String addInvestment() {
-		return "investmentSection/AddInvestment";
-	}
-
-	@GetMapping("/rDRenewal")
-	public String rDRenewal() {
-		return "investmentSection/RDRenewal";
-	}
-
-	@GetMapping("/dailyRenewalPayment")
-	public String dailyRenewalPayment() {
-		return "investmentSection/DailyRenewalPayment";
-	}
-
-	@GetMapping("/flexirenewal9828")
-	public String flexirenewal9828() {
-		return "investmentSection/Flexirenewal9828";
-	}
-
-	@GetMapping("/renewalPassbook")
-	public String renewalPassbook() {
-		return "investmentSection/RenewalPassbook";
-	}
-
-	@GetMapping("/policyRenewalReceiptf0be")
-	public String policyRenewalReceiptf0be() {
-		return "investmentSection/PolicyRenewalReceiptf0be";
-	}
-
-	@GetMapping("/policyRenewalReceiptb376")
-	public String PolicyRenewalReceiptb376() {
-		return "investmentSection/PolicyRenewalReceiptb376";
-	}
-
-	@GetMapping("/certificateIssue")
-	public String CertificateIssue() {
-		return "investmentSection/CertificateIssue";
-	}
-
-	@GetMapping("/certificateIssue46b3")
-	public String CertificateIssue46b3() {
-		return "investmentSection/CertificateIssue46b3";
-	}
-
-	@GetMapping("/investmentInterestDetails")
-	public String InvestmentInterestDetails() {
-		return "investmentSection/InvestmentInterestDetails";
-	}
-
-	@GetMapping("/investmentInterestPayable")
-	public String InvestmentInterestPayable() {
-		return "investmentSection/InvestmentInterestPayable";
-	}
-
-	@GetMapping("/investmentSearch")
-	public String InvestmentSearch() {
-		return "investmentSection/InvestmentSearch";
-	}
-	
-	@GetMapping("/accountCloser")
-	public String AccountCloser() {
-		return "savingsAccount/AccountCloser";
-	}
-	
-	@GetMapping("/addSaving")
-	public String AddSaving() {
-		return "savingsAccount/AddSaving";
-	}
-	
-	@GetMapping("/savingIntraTransfer")
-	public String SavingIntraTransfer() {
-		return "savingsAccount/SavingIntraTransfer";
-	}
-	//
-	@GetMapping("/savingsPlanMaster")
-	public String SavingsPlanMaster() {
-		return "savingsAccount/SavingsPlanMaster";
-	}
-	
-	@GetMapping("/savingsStatement")
-	public String savingsStatement() {
-		return "savingsAccount/SavingsStatement";
-	}
-	@GetMapping("/savingsTransactionEntry")
-	public String SavingsTransactionEntry() {
-		return "savingsAccount/SavingsTransactionEntry";
-	}
-	@GetMapping("/sBInterestGenerate")
-	public String SBInterestGenerate() {
-		return "savingsAccount/SBInterestGenerate";
-	}
-	@GetMapping("/sBPassbookPrint")
-	public String SBPassbookPrint() {
-		return "savingsAccount/SBPassbookPrint";
-	}
-	@GetMapping("/searchSavingsAccount")
-	public String SearchSavingsAccount() {
-		return "savingsAccount/SearchSavingsAccount";
-	}
-	@GetMapping("/serviceChargesDeduction")
-	public String ServiceChargesDeduction() {
-		return "savingsAccount/ServiceChargesDeduction";
-	}
-	@GetMapping("/sMSChargesDeduction")
-	public String SMSChargesDeduction() {
-		return "savingsAccount/SMSChargesDeduction";
-	}
+	/*
+	 * @GetMapping("/planMaster") public String planMaster() { return
+	 * "investmentSection/PlanMaster"; }
+	 * 
+	 * @GetMapping("/addInvestment") public String addInvestment() { return
+	 * "investmentSection/AddInvestment"; }
+	 * 
+	 * @GetMapping("/rDRenewal") public String rDRenewal() { return
+	 * "investmentSection/RDRenewal"; }
+	 * 
+	 * @GetMapping("/dailyRenewalPayment") public String dailyRenewalPayment() {
+	 * return "investmentSection/DailyRenewalPayment"; }
+	 * 
+	 * @GetMapping("/flexirenewal9828") public String flexirenewal9828() { return
+	 * "investmentSection/Flexirenewal9828"; }
+	 * 
+	 * @GetMapping("/renewalPassbook") public String renewalPassbook() { return
+	 * "investmentSection/RenewalPassbook"; }
+	 * 
+	 * @GetMapping("/policyRenewalReceiptf0be") public String
+	 * policyRenewalReceiptf0be() { return
+	 * "investmentSection/PolicyRenewalReceiptf0be"; }
+	 * 
+	 * @GetMapping("/policyRenewalReceiptb376") public String
+	 * PolicyRenewalReceiptb376() { return
+	 * "investmentSection/PolicyRenewalReceiptb376"; }
+	 * 
+	 * @GetMapping("/certificateIssue") public String CertificateIssue() { return
+	 * "investmentSection/CertificateIssue"; }
+	 * 
+	 * @GetMapping("/certificateIssue46b3") public String CertificateIssue46b3() {
+	 * return "investmentSection/CertificateIssue46b3"; }
+	 * 
+	 * @GetMapping("/investmentInterestDetails") public String
+	 * InvestmentInterestDetails() { return
+	 * "investmentSection/InvestmentInterestDetails"; }
+	 * 
+	 * @GetMapping("/investmentInterestPayable") public String
+	 * InvestmentInterestPayable() { return
+	 * "investmentSection/InvestmentInterestPayable"; }
+	 * 
+	 * @GetMapping("/investmentSearch") public String InvestmentSearch() { return
+	 * "investmentSection/InvestmentSearch"; }
+	 * 
+	 * @GetMapping("/accountCloser") public String AccountCloser() { return
+	 * "savingsAccount/AccountCloser"; }
+	 * 
+	 * @GetMapping("/addSaving") public String AddSaving() { return
+	 * "savingsAccount/AddSaving"; }
+	 * 
+	 * @GetMapping("/savingIntraTransfer") public String SavingIntraTransfer() {
+	 * return "savingsAccount/SavingIntraTransfer"; } //
+	 * 
+	 * @GetMapping("/savingsPlanMaster") public String SavingsPlanMaster() { return
+	 * "savingsAccount/SavingsPlanMaster"; }
+	 * 
+	 * @GetMapping("/savingsStatement") public String savingsStatement() { return
+	 * "savingsAccount/SavingsStatement"; }
+	 * 
+	 * @GetMapping("/savingsTransactionEntry") public String
+	 * SavingsTransactionEntry() { return "savingsAccount/SavingsTransactionEntry";
+	 * }
+	 * 
+	 * @GetMapping("/sBInterestGenerate") public String SBInterestGenerate() {
+	 * return "savingsAccount/SBInterestGenerate"; }
+	 * 
+	 * @GetMapping("/sBPassbookPrint") public String SBPassbookPrint() { return
+	 * "savingsAccount/SBPassbookPrint"; }
+	 * 
+	 * @GetMapping("/searchSavingsAccount") public String SearchSavingsAccount() {
+	 * return "savingsAccount/SearchSavingsAccount"; }
+	 * 
+	 * @GetMapping("/serviceChargesDeduction") public String
+	 * ServiceChargesDeduction() { return "savingsAccount/ServiceChargesDeduction";
+	 * }
+	 * 
+	 * @GetMapping("/sMSChargesDeduction") public String SMSChargesDeduction() {
+	 * return "savingsAccount/SMSChargesDeduction"; }
+	 */
 	//
 
 	@GetMapping("/logout")
@@ -762,10 +797,10 @@ public class HomeControler {
 		return "employee/DepartmentMaster";
 	}
 
-	@GetMapping("/EmployeeIDCardPrinting")
-	public String EmployeeIDCardPrinting() {
-		return "employee/EmployeeIDCardPrinting";
-	}
+	/*
+	 * @GetMapping("/EmployeeIDCardPrinting") public String EmployeeIDCardPrinting()
+	 * { return "employee/EmployeeIDCardPrinting"; }
+	 */
 
 	@GetMapping("/SearchEmployee")
 	public String SearchEmployee() {
@@ -795,5 +830,234 @@ public class HomeControler {
 		}
 		return date;
 	}
+	
+	
+	@GetMapping("/loanApplication9c5a")
+	public String loanApplication9c5a() {
+		return "Loan_Section/LoanApplication9c5a";
+	}
+	
+	@GetMapping("/loanApplicationf780")
+	public String loanApplicationf780() {
+		return "Loan_Section/LoanApplicationf780";
+	}
+	
+	@GetMapping("/loanRepaymentf159")
+	public String loanRepaymentf159() {
+		return "Loan_Section/LoanRepaymentf159";
+	}
+	
+	@GetMapping("/irregularEMIPaymentEntryf159")
+	public String irregularEMIPaymentEntryf159() {
+		return "Loan_Section/IrregularEMIPaymentEntryf159";
+	}
+	
+	@GetMapping("/regularLoanStatementf159")
+	public String regularLoanStatementf159() {
+		return "Loan_Section/RegularLoanStatementf159";
+	}
+	
+	@GetMapping("/irregularLoanStatementf159")
+	public String irregularLoanStatementf159() {
+		return "Loan_Section/IrregularLoanStatementf159";
+	}
+	
+	@GetMapping("/regularLoanDocumentPrint")
+	public String regularLoanDocumentPrint() {
+		return "Loan_Section/RegularLoanDocumentPrint";
+	}
+	
+	@GetMapping("/loanPreSettlementf159")
+	public String loanPreSettlementf159() {
+		return "Loan_Section/LoanPreSettlementf159";
+	}
+	
+	@GetMapping("/closedLoanReportf159")
+	public String closedLoanReportf159() {
+		return "Loan_Section/ClosedLoanReportf159";
+	}
+	
+	@GetMapping("/loanNocf159")
+	public String loanNocf159() {
+		return "Loan_Section/LoanNocf159";
+	}
+	
+	@GetMapping("/loanSearch")
+	public String loanSearch() {
+		return "Loan_Section/LoanSearch";
+	}
+	
+	@GetMapping("/goldLoanPlan")
+	public String goldLoanPlan() {
+		return "Gold_Loan/Gold_LoanPlan";
+	}
+	
+	@PostMapping("todaysRateMaster")
+	public String todaysRateMaster(@ModelAttribute("todaysRateMaster") TodaysRateMaster todaysRateMaster, Model model) {
+		todaysRateMasterRepo.save(todaysRateMaster);
+		
+		return "Gold_Loan/goldLoanMaster";
+	}
+	
+	@GetMapping("/goldLoanMaster")
+	public String goldLoanMaster() {
+		return "Gold_Loan/goldLoanMaster";
+	}
+	
+	@PostMapping("goldLoanPlan")
+	public String goldLoanPlan(@ModelAttribute("goldLoanPlan") GoldLoanPlanMaster goldLoanPlanMaster, Model model) {
+		goldLoanPlanRepo.save(goldLoanPlanMaster);
+		
+		return "Gold_Loan/Gold_LoanPlan";
+	}
+	
+	// Prasad--S
+		@GetMapping("/LoanApplication")
+		public String LoanApplication(Model model) {
+			List<LoanPlanMaster> loanPlanMaster = loanPlanMasterRepo.findAll();
+			model.addAttribute("loanPlanMaster", loanPlanMaster);
+			return "Loan_Section/LoanApplication";
+		}
+		
+		
+		@PostMapping("getLoanDetails")
+		@ResponseBody
+		public LoanPlanMaster getLoanDetails(@RequestBody GenericGetById id) {
+			System.out.println("In getLoanDetails");
+			Optional<LoanPlanMaster> loanPlanMaster = loanPlanMasterRepo.findById(Integer.parseInt(id.getId()));
+			System.out.println("loanPlanMaster>>>"+loanPlanMaster.get().getValuerfees());
+			return loanPlanMaster.get();
+		}
+		
+		
+		// Prasad--E
 
+		@RequestMapping(value = "/id", method = RequestMethod.GET)
+		public LoanPlanMaster getLoanAsPerId() {
+
+			return null;
+		}
+		
+		//aditya saving module start
+		
+		
+		
+		@GetMapping("/addSaving")
+		public String AddSaving() {
+			return "savingsAccount/AddSaving";
+		}
+		
+		@GetMapping("/savingIntraTransfer")
+		public String SavingIntraTransfer() {
+			return "savingsAccount/SavingIntraTransfer";
+		}
+		//
+		@GetMapping("/savingsPlanMaster")
+		public String SavingsPlanMaster() {
+			return "savingsAccount/SavingsPlanMaster";
+		}
+		
+		@GetMapping("/savingsStatement")
+		public String savingsStatement() {
+			return "savingsAccount/SavingsStatement";
+		}
+		@GetMapping("/savingsTransactionEntry")
+		public String SavingsTransactionEntry() {
+			return "savingsAccount/SavingsTransactionEntry";
+		}
+		@GetMapping("/sBInterestGenerate")
+		public String SBInterestGenerate() {
+			return "savingsAccount/SBInterestGenerate";
+		}
+		@GetMapping("/sBPassbookPrint")
+		public String SBPassbookPrint() {
+			return "savingsAccount/SBPassbookPrint";
+		}
+		@GetMapping("/searchSavingsAccount")
+		public String SearchSavingsAccount() {
+			return "savingsAccount/SearchSavingsAccount";
+		}
+		@GetMapping("/serviceChargesDeduction")
+		public String ServiceChargesDeduction() {
+			return "savingsAccount/ServiceChargesDeduction";
+		}
+		@GetMapping("/sMSChargesDeduction")
+		public String SMSChargesDeduction() {
+			return "savingsAccount/SMSChargesDeduction";
+		}
+		
+		@GetMapping("/accountCloser")
+		public String AccountCloser() {
+			return "savingsAccount/AccountCloser";
+		}
+		//
+		//aditya saving module end
+		
+		//aditya's investment module
+		@GetMapping("/planMaster")
+		public String planMaster() {
+			return "investmentSection/PlanMaster";
+		}
+
+		@GetMapping("/addInvestment")
+		public String addInvestment() {
+			return "investmentSection/AddInvestment";
+		}
+
+		@GetMapping("/rDRenewal")
+		public String rDRenewal() {
+			return "investmentSection/RDRenewal";
+		}
+
+		@GetMapping("/dailyRenewalPayment")
+		public String dailyRenewalPayment() {
+			return "investmentSection/DailyRenewalPayment";
+		}
+
+		@GetMapping("/flexirenewal9828")
+		public String flexirenewal9828() {
+			return "investmentSection/Flexirenewal9828";
+		}
+
+		@GetMapping("/renewalPassbook")
+		public String renewalPassbook() {
+			return "investmentSection/RenewalPassbook";
+		}
+
+		@GetMapping("/policyRenewalReceiptf0be")
+		public String policyRenewalReceiptf0be() {
+			return "investmentSection/PolicyRenewalReceiptf0be";
+		}
+
+		@GetMapping("/policyRenewalReceiptb376")
+		public String PolicyRenewalReceiptb376() {
+			return "investmentSection/PolicyRenewalReceiptb376";
+		}
+
+		@GetMapping("/certificateIssue")
+		public String CertificateIssue() {
+			return "investmentSection/CertificateIssue";
+		}
+
+		@GetMapping("/certificateIssue46b3")
+		public String CertificateIssue46b3() {
+			return "investmentSection/CertificateIssue46b3";
+		}
+
+		@GetMapping("/investmentInterestDetails")
+		public String InvestmentInterestDetails() {
+			return "investmentSection/InvestmentInterestDetails";
+		}
+
+		@GetMapping("/investmentInterestPayable")
+		public String InvestmentInterestPayable() {
+			return "investmentSection/InvestmentInterestPayable";
+		}
+
+		@GetMapping("/investmentSearch")
+		public String InvestmentSearch() {
+			return "investmentSection/InvestmentSearch";
+		}
+		
+		//end
 }

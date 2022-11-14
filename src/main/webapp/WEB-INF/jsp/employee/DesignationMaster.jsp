@@ -168,7 +168,7 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'form1', [],
                     <div class="box-header with-border">
                         <h3 class="box-title">Add Designation Master </h3>
                     </div>
-<form method="post" action="DesignationMaster"  id="form1">
+<form method="post" action="DesignationMaster"  id="form1" modelAttribute="designation">
                     <div class="box-body">
                         <div class="col-md-12">
                             
