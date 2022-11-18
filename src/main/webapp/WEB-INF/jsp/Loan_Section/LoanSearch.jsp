@@ -1,5 +1,5 @@
 <jsp:include page="../header.jsp" />
-<body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%; background-color: rgba(36, 105, 92, 0.15);" cz-shortcut-listen="true">
+<body onload="getListOfLoanId()" class="skin-blue sidebar-mini" style="height: auto; min-height: 100%; background-color: rgba(36, 105, 92, 0.15);" cz-shortcut-listen="true">
     <form method="post" action="http://admin:eqfi%23123@eqfinidhi.eadmin.in/Admin/LoanSearch.aspx" id="form1">
 <div class="aspNetHidden">
 <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />

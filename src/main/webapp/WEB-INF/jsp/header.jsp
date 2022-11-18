@@ -106,5 +106,6 @@
         }
     </script>
     <script src="dist/js/customJs.js"></script>
-     <script src="dist/js/investmentSection.js"></script>
+    <script src="dist/js/investmentSection.js"></script>
+    <script src="dist/js/loanModule.js"></script>
 </head>

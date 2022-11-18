@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="plugins/iCheck/all.css" />
-
+	<script src="dist/js/loanModule.js"></script>
     <!-- Select2 -->
     <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css" />
     <!-- Theme style -->
@@ -126,8 +126,20 @@
         }
     </script>
 </head>
-<body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%; background-color: rgba(36, 105, 92, 0.15);" cz-shortcut-listen="true">
-    <form method="post" action="http://admin:eqfi%23123@eqfinidhi.eadmin.in/Admin/LoanApplication.aspx?Type=Payment" onsubmit="javascript:return WebForm_OnSubmit();" id="form1">
+<body onload="getListOfLoanId()" class="skin-blue sidebar-mini" style="height: auto; min-height: 100%; background-color: rgba(36, 105, 92, 0.15);" cz-shortcut-listen="true">
+      <%
+         String status = (String)request.getAttribute("status");
+         if(status!=null && "success".equals(status)){
+        	 %>
+        	 <script>
+        	   alert("Savaed Data Successfully");
+        	</script>
+         <%
+         }else{
+        	 
+         }
+         %>
+    <form method="post" action="saveLoanApplication" id="form1" modelAttribute="rd">
 <div class="aspNetHidden">
 <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
 <input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
@@ -216,12 +228,12 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'form1', ['t
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-sm-4 control-label">Select by LoanID <strong style="color: Red">*</strong></label>
-                                    <div class="col-sm-8">
-                                        <select name="searchLoanID"  id="searchLoanID" class="form-control select2" style="width: 100%;">
-	<option selected="selected" value=""></option>
-
-</select>
-                                    </div>
+                                     <div class="col-sm-8">
+                                          <select name="id"  
+                                          	onchange="javascript:getByLoanId()"
+                                          id="searchLoanId" class="form-control select2" style="width: 100%;">
+                                             <option selected="selected" value=""></option>
+                                          </select>
                                 </div>
                             </div>
                         </div>
@@ -486,7 +498,7 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'form1', ['t
                                             <i class="fa fa-calendar"></i>
                                         </div>
 
-                                        <input name="dob" type="text" value="01/08/2022" readonly="readonly" id=""dob"" class="form-control" data-inputmask="&#39;alias&#39;: &#39;dd/mm/yyyy&#39;" data-mask="" />
+                                        <input name="DOB" type="text" value="01/08/2022" readonly="readonly" id="DOB" class="form-control" data-inputmask="&#39;alias&#39;: &#39;dd/mm/yyyy&#39;" data-mask="" />
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -540,7 +552,7 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'form1', ['t
                                     <div class="form-group row">
                                         <label class="col-sm-4 control-label">Loan Plan Name <strong style="color: Red">*</strong></label>
                                         <div class="col-sm-8">
-                                            <select name="loanPlanName"  id="loanPlanName" class="form-control" style="width: 100%;">
+                                            <select name="loanName"  id="loanPlanName" class="form-control" style="width: 100%;">
 
 	</select>
 

@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css" />
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css" />
-
+	<script src="dist/js/loanModule.js"></script>
     <!-- daterange picker -->
     <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css" />
     <!-- bootstrap datepicker -->
@@ -67,9 +67,20 @@
         }
     </script>
 </head>
-<body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%; background-color: rgba(36, 105, 92, 0.15);" cz-shortcut-listen="true">
-    <form method="post" action="http://admin:eqfi%23123@eqfinidhi.eadmin.in/Admin/LoanRepayment.aspx?Type=Normal" onsubmit="javascript:return WebForm_OnSubmit();" id="form1">
-
+<body onload="getListOfLoanId()" class="skin-blue sidebar-mini" style="height: auto; min-height: 100%; background-color: rgba(36, 105, 92, 0.15);" cz-shortcut-listen="true">
+    <form method="post" modelAttribute="rd" action="saveDataRegularEMIRepayment"  id="form1">
+  <%
+         String status = (String)request.getAttribute("status");
+         if(status!=null && "success".equals(status)){
+        	 %>
+        	 <script>
+        	   alert("Savaed Data Successfully");
+        	</script>
+         <%
+         }else{
+        	 
+         }
+         %>
 
         <div style="height: auto; min-height: 100%; border-radius: 30px; margin: 15px; background: url(dist/img/back.jpg);">
 <!-- Header Start-->
@@ -109,13 +120,13 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'form1', ['t
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-sm-4 control-label">Select Loan ID & Name <strong style="color: Red">*</strong></label>
-                                    <div class="col-sm-8">
-                                        <select name="searchLoanID"  id="searchLoanID" class="form-control select2" style="width: 100%;">
-	<option selected="selected" value=""></option>
-
-</select>
-                                         <span id="ContentPlaceHolder1_RequiredFieldValidator1" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Select Loan ID</span>
-                                    </div>
+                                     <div class="col-sm-8">
+                                          <select name="id"  
+                                          	onchange="javascript:getByLoanId()"
+                                          id="searchLoanId" class="form-control select2" style="width: 100%;">
+                                             <option selected="selected" value=""></option>
+                                          </select>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -149,28 +160,28 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'form1', ['t
                             <div class="form-group row">
                                 <label for="txtCodeName" class="col-sm-5 control-label">Code & Name <strong style="color: Red">*</strong></label>
                                 <div class="col-sm-7">
-                                    <input name="codeName" type="text" readonly="readonly" id="codeName" class="form-control" PlaceHolder="Enter Code &amp; Name" />
+                                    <input name="cspName" type="text" readonly="readonly" id="cspName" class="form-control" PlaceHolder="Enter Code &amp; Name" />
                                     <span id="ContentPlaceHolder1_RequiredFieldValidatorCodeName" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Code & Name</span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="txtNameRelation" class="col-sm-5 control-label">Relative Details </label>
                                 <div class="col-sm-7">
-                                    <input name="nameRelation" type="text" readonly="readonly" id="nameRelation" class="form-control" PlaceHolder="Enter Relative Details" />
+                                    <input name="memberRelativesName" type="text" readonly="readonly" id="memberRelativesName" class="form-control" PlaceHolder="Enter Relative Details" />
 
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="txtMobileNo" class="col-sm-5 control-label">Mobile No <strong style="color: Red">*</strong></label>
                                 <div class="col-sm-7">
-                                    <input name="mobileNo" type="text" readonly="readonly" id="mobileNo" class="form-control" PlaceHolder="Enter Mobile No" />
+                                    <input name="phoneno" type="text" readonly="readonly" id="phoneno" class="form-control" PlaceHolder="Enter Mobile No" />
                                     <span id="ContentPlaceHolder1_RequiredFieldValidatorMobileNo" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Mobile No</span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="txtBranchName" class="col-sm-5 control-label">Branch Name<strong style="color: Red">*</strong></label>
                                 <div class="col-sm-7">
-                                    <input name="branchName" type="text" readonly="readonly" id="branchName" class="form-control" PlaceHolder="Enter Branch Name" />
+                                    <input name="cspName" type="text" readonly="readonly" id="cspName" class="form-control" PlaceHolder="Enter Branch Name" />
                                     <span id="ContentPlaceHolder1_RequiredFieldValidatortxtBranchName" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Branch Name</span>
                                 </div>
                             </div>
@@ -181,7 +192,7 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'form1', ['t
                             <div class="form-group row">
                                 <label for="txtLoanPlanName" class="col-sm-5 control-label">Plan Name <strong style="color: Red">*</strong></label>
                                 <div class="col-sm-7">
-                                    <input name="loanPlanName" type="text" readonly="readonly" id="loanPlanName" class="form-control" PlaceHolder="Enter Plan Name" />
+                                    <input name="loanName" type="text" readonly="readonly" id="loanName" class="form-control" PlaceHolder="Enter Plan Name" />
                                     <span id="ContentPlaceHolder1_RequiredFieldValidatorLoanPlanName" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Loan Plan Name</span>
                                 </div>
                             </div>
@@ -195,7 +206,7 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'form1', ['t
                             <div class="form-group row">
                                 <label for="txtLoanMode" class="col-sm-5 control-label">Loan Mode <strong style="color: Red">*</strong></label>
                                 <div class="col-sm-7">
-                                    <input name="loanMode" type="text" readonly="readonly" id="loanMode" class="form-control" PlaceHolder="Enter Loan Mode" />
+                                    <input name="loanType" type="text" readonly="readonly" id="loanType" class="form-control" PlaceHolder="Enter Loan Mode" />
                                     <span id="ContentPlaceHolder1_RequiredFieldValidatorLoanMode" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Loan Mode</span>
                                 </div>
                             </div>
@@ -209,7 +220,7 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'form1', ['t
                             <div class="form-group row">
                                 <label for="txtLoanROI" class="col-sm-5 control-label">Loan ROI <strong style="color: Red">*</strong></label>
                                 <div class="col-sm-7">
-                                    <input name="loanROI" type="text" readonly="readonly" id="loanROI" class="form-control" PlaceHolder="Enter Loan ROI" />
+                                    <input name="ROI" type="text" readonly="readonly" id="ROI" class="form-control" PlaceHolder="Enter Loan ROI" />
                                     <span id="ContentPlaceHolder1_RequiredFieldValidatorLoanROI" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Loan ROI</span>
                                 </div>
                             </div>
@@ -430,8 +441,8 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'form1', ['t
                     </div>
                     <div class="box-footer">
                         <div class="row col-md-12">
-                            <input type="submit" name="loanStatement" value="Loan Statement" id="loanStatement" class="btn btn-warning pull-left" />
-                            <input type="submit" name="delete" value="Delete Last EMI" id="delete" class="btn btn-danger pull-right" />
+                            <input type="submit" name="loanStatement" onclick="this.disabled = true" value="Loan Statement" id="loanStatement" class="btn btn-warning pull-left" />
+                            <input type="submit" name="delete" onclick="this.disabled = true" value="Delete Last EMI" id="delete" class="btn btn-danger pull-right" />
                             
                             <input type="submit" name="btnSave" value="Save Data" id="btnSave" class="btn btn-success pull-right margin-r-5" />
                         </div>

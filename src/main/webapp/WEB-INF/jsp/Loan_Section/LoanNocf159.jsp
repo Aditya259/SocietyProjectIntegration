@@ -1,6 +1,6 @@
 
 <jsp:include page="../header.jsp" />
-<body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%; background-color: rgba(36, 105, 92, 0.15);" cz-shortcut-listen="true">
+<body onload="getListOfLoanId()" class="skin-blue sidebar-mini" style="height: auto; min-height: 100%; background-color: rgba(36, 105, 92, 0.15);" cz-shortcut-listen="true">
     <form method="post" action="http://admin:eqfi%23123@eqfinidhi.eadmin.in/Admin/LoanNoc.aspx?Type=Normal" id="form1">
 <div class="aspNetHidden">
 <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
@@ -76,7 +76,8 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'form1', [],
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Select by Loan ID <strong style="color: Red">*</strong></label>
-                                <select name="searchLoanID" id="searchLoanID" class="form-control select2" style="width: 100%;">
+                                <select name="searchLoanId" id="searchLoanId" 
+                                onchange="javascript:getByLoanId()" class="form-control select2" style="width: 100%;">
 	<option value=""></option>
 
 </select>
@@ -86,7 +87,7 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'form1', [],
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label></label>
-                                <input type="submit" name="btnSave" value="Search" id="btnSave" class="btn btn-success margin-20" />
+                                <input type="submit" onclick="this.disabled = true" name="btnSave" value="Search" id="btnSave" class="btn btn-success margin-20" />
                             </div>
                         </div>
                     </div>
