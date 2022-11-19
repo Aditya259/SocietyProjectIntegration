@@ -178,9 +178,6 @@ public class HomeControler {
 
 	@PostMapping("Loan_Plan")
 	public String LoanPlan(@ModelAttribute("loanPlan") LoanPlanMaster loanPlanMaster, Model model) {
-			//int i = 0;
-			//loanPlanMaster.setInsuranceAmt(i);
-		
 		LoanPlanMaster loanPlanMasterSavedData = loanPlanMasterRepo.save(loanPlanMaster);
 		if(loanPlanMasterSavedData != null) {
 			model.addAttribute("status", "success");
@@ -899,6 +896,7 @@ public class HomeControler {
 		//loanPlanMasterRepo.save(loanPlanMaster);
 		//int i = 0;
 		//loanPlanMaster.setInsuranceAmt(i);
+		loanPlanMasterRepo.save(loanPlanMaster);
 		List<LoanPlanMaster> loanPlanMasterAllData = loanPlanMasterRepo.findAll();
 		model.addAttribute("loanPlanMaster", loanPlanMasterAllData);
 		model.addAttribute("status", "success");

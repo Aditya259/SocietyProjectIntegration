@@ -12,6 +12,7 @@ public class LoanPlanMaster {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	private String loanDate;
 	private String closedFlag;
 	private String loanName;
 	private String loanType;
@@ -88,7 +89,44 @@ public class LoanPlanMaster {
 	private String payableStringerest;
 	private String payablePrincipal;
 	private String payablePrincipalaymentString;
+	private String memberData;
+	private String age;
+	private String planTerm;
+
 	
+	
+	public String getPlanTerm() {
+		return planTerm;
+	}
+
+	public void setPlanTerm(String planTerm) {
+		this.planTerm = planTerm;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public String getMemberData() {
+		return memberData;
+	}
+
+	public void setMemberData(String memberData) {
+		this.memberData = memberData;
+	}
+
+	public String getLoanDate() {
+		return loanDate;
+	}
+
+	public void setLoanDate(String loanDate) {
+		this.loanDate = loanDate;
+	}
+
 	public String getStringerestPaid() {
 		return StringerestPaid;
 	}

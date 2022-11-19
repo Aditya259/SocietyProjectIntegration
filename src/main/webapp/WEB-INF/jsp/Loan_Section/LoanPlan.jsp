@@ -140,7 +140,6 @@
       <!-- Aside Menu Start-->
       <jsp:include page="../asideMenu.jsp" />
       <!-- Aside Menu end -->
-     
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper" style="min-height: 1105.75px;">
          <section class="content-header">
@@ -152,17 +151,17 @@
             </ol>
          </section>
          <%
-         String status = (String)request.getAttribute("status");
-         if(status!=null && "success".equals(status)){
-        	 %>
-        	 <script>
-        	   alert("Saved Successfully");
-        	</script>
+            String status = (String)request.getAttribute("status");
+            if(status!=null && "success".equals(status)){
+             %>
+         <script>
+            alert("Saved Successfully");
+         </script>
          <%
-         }else{
-        	 
-         }
-         %>
+            }else{
+             
+            }
+            %>
          <section class="content">
             <div class="row">
                <div class="col-md-12">
