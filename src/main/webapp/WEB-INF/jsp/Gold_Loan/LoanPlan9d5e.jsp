@@ -1,11 +1,24 @@
 <jsp:include page="../header.jsp" />
 <body class="skin-blue sidebar-mini"
    style="height: auto; min-height: 100%; background-color: rgba(36, 105, 92, 0.15);"
-   cz-shortcut-listen="true">
+   cz-shortcut-listen="true" onload="getAllGoldLoan()">
    <form method="post"
-      action=""
-      modelAttribute="saveLoanMaster"
-     >
+      name="myForm"
+      action="saveLoanMaster"
+      modelAttribute="saveGoldLoanMaster"
+      >
+      <%
+         String status = (String)request.getAttribute("status");
+         if(status!=null && "success".equals(status)){
+          %>
+      <script>
+         alert("Saved Successfully");
+      </script>
+      <%
+         }else{
+          
+         }
+         %>
       <div
          style="height: auto; min-height: 100%; border-radius: 30px; margin: 15px; background: url(dist/img/back.jpg);">
          <!-- Header Start-->
@@ -48,7 +61,7 @@
                                        type="text" id="loanName"
                                        class="form-control" PlaceHolder="Enter Loan Name" /> <span
                                        id="loanNameMsg"
-                                       style="color: Red; font-size: X-Small; font-weight: bold; display: block;"></span>
+                                       style="color: Red; font-size: X-Small; font-weight: bold; display: none;"></span>
                                  </div>
                               </div>
                               <div class="form-group row">
@@ -63,9 +76,9 @@
                                        <option value="Gold Loan">Gold Loan</option>
                                        <option value="Silver Loan">Silver Loan</option>
                                     </select>
-                                     <span
+                                    <span
                                        id="loanTypeMsg"
-                                       style="color: Red; font-size: X-Small; font-weight: bold; display: block;"></span>
+                                       style="color: Red; font-size: X-Small; font-weight: bold; display: none;"></span>
                                  </div>
                               </div>
                               <div class="form-group row">
@@ -83,9 +96,9 @@
                                        <option value="Mly.">Monthly</option>
                                        <option value="Qly.">Quarterly</option>
                                     </select>
-                                     <span
+                                    <span
                                        id="emiCollectionMsg"
-                                       style="color: Red; font-size: X-Small; font-weight: bold; display: block;"></span>
+                                       style="color: Red; font-size: X-Small; font-weight: bold; display: none;"></span>
                                  </div>
                               </div>
                               <div class="form-group row">
@@ -96,7 +109,7 @@
                                     <select name="roiType"
                                        id="roiType" class="form-control"
                                        style="width: 100%;">
-                                        <option selected value="">Select ROI Type
+                                       <option selected value="">Select ROI Type
                                        </option>
                                        <option value="Flat Interest">Flat
                                           Interest
@@ -106,10 +119,9 @@
                                        </option>
                                        <option value="Rule 78">Rule 78</option>
                                     </select>
-                                     <span
+                                    <span
                                        id="roiTypeMsg"
-                                       style="color: Red; font-size: X-Small; font-weight: bold; display: block;"></span>
-                               
+                                       style="color: Red; font-size: X-Small; font-weight: bold; display: none;"></span>
                                  </div>
                               </div>
                               <div class="form-group row">
@@ -121,14 +133,13 @@
                                        id="emiType"
                                        class="aspNetDisabled" class="form-control"
                                        style="width: 100%;">
-                                        <option  value="" Selected>Select EMI Type</option>
+                                       <option  value="" Selected>Select EMI Type</option>
                                        <option  value="Regular">Regular</option>
                                        <option value="Irregular">Irregular</option>
                                     </select>
                                     <span
                                        id="emiTypeMsg"
-                                       style="color: Red; font-size: X-Small; font-weight: bold; display: block;"></span>
-                               
+                                       style="color: Red; font-size: X-Small; font-weight: bold; display: none;"></span>
                                  </div>
                               </div>
                            </div>
@@ -140,7 +151,7 @@
                                     <input name="minAge"
                                        type="text" id="minAge"
                                        class="form-control" /> <span
-                                       id="minAge"
+                                       id="minAgeMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     Min Age</span>
                                  </div>
@@ -153,7 +164,7 @@
                                     <input name="maxAge"
                                        type="text" id="maxAge"
                                        class="form-control" /> <span
-                                       id="maxAge"
+                                       id="maxAgeMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     Max Age</span>
                                  </div>
@@ -165,7 +176,7 @@
                                     <input name="minAmount"
                                        type="text" id="minAmount"
                                        class="form-control" /> <span
-                                       id="minAmount"
+                                       id="minAmountMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     Min Amount</span>
                                  </div>
@@ -177,7 +188,7 @@
                                     <input name="maxAmount"
                                        type="text" id="maxAmount"
                                        class="form-control" /> <span
-                                       id="maxAmount"
+                                       id="maxAmountMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     Max Amount</span>
                                  </div>
@@ -189,7 +200,7 @@
                                     <label class="switch"> <input
                                        id="planStatus" type="checkbox"
                                        name="planStatus"
-                                       checked="checked" /> <span class="slider round"></span>
+                                       checked="checked" /> <span id="planStatusMsg" class="slider round"   style="color: Red; font-size: X-Small; font-weight: bold; display: none;"></span>
                                     </label>
                                  </div>
                               </div>
@@ -202,7 +213,7 @@
                                     <input name="minTerm"
                                        type="text" id="minTerm"
                                        class="form-control" /> <span
-                                       id="minTerm"
+                                       id="minTermMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     Min Term</span>
                                  </div>
@@ -214,7 +225,7 @@
                                     <input name="maxTerm"
                                        type="text" id="maxTerm"
                                        class="form-control" /> <span
-                                       id="maxTerm"
+                                       id="maxTermMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     Max Term</span>
                                  </div>
@@ -226,7 +237,7 @@
                                     <input name="roi" type="text"
                                        id="roi" class="form-control"
                                        autocomplete="off" /> <span
-                                       id=""roi""
+                                       id="roiMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     ROI (% p.a.)</span>
                                  </div>
@@ -243,6 +254,10 @@
                                        <option value="HYPOTHECATION">HYPOTHECATION</option>
                                        <option value="GUARANTEE">GUARANTEE</option>
                                     </select>
+                                    <span
+                                       id="securityTypeMsg"
+                                       style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
+                                    Security</span>
                                  </div>
                               </div>
                            </div>
@@ -262,7 +277,7 @@
                                     <input name="processingFee"
                                        type="text" id="processingFee"
                                        class="form-control" autocomplete="off" /> <span
-                                       id="processingFee"
+                                       id="processingFeeMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     Processing Fee (%)</span>
                                  </div>
@@ -277,7 +292,7 @@
                                     <input name="legalAmt"
                                        type="text" id="legalAmt"
                                        class="form-control" autocomplete="off" /> <span
-                                       id="legalAmt"
+                                       id="legalAmtMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     Legal Fee (%)</span>
                                  </div>
@@ -292,7 +307,7 @@
                                     <input name="gst" type="text"
                                        id="gst" class="form-control"
                                        autocomplete="off" /> <span
-                                       id="gst"
+                                       id="gstMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     GST (%)</span>
                                  </div>
@@ -307,7 +322,7 @@
                                     <input name="insuranceAmt"
                                        type="text" id="insuranceAmt"
                                        class="form-control" autocomplete="off" /> <span
-                                       id="insuranceAmt"
+                                       id="insuranceAmtMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     Insurance Fee (%)</span>
                                  </div>
@@ -321,7 +336,7 @@
                                     <input name="valuerFees" type="text"
                                        id="valuerFees" class="form-control"
                                        autocomplete="off" /> <span
-                                       id="valuerFees"
+                                       id="valuerFeesMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     Valuer Fee (%)</span>
                                  </div>
@@ -343,7 +358,7 @@
                                     <input name="gracePeriodDays"
                                        type="text" id="gracePeriodDays"
                                        class="form-control" /> <span
-                                       id="gracePeriodDays"
+                                       id="gracePeriodDaysMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     Grace Period Days</span>
                                  </div>
@@ -360,6 +375,10 @@
                                        <option value="Percentage">Percentage</option>
                                        <option value="Amount">Amount</option>
                                     </select>
+                                    <span
+                                       id="penaltyTypeMsg"
+                                       style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
+                                    Penalty</span>
                                  </div>
                               </div>
                            </div>
@@ -371,7 +390,7 @@
                                     <input name="penalty"
                                        type="text" id="penalty"
                                        class="form-control" autocomplete="off" /> <span
-                                       id="ContentPlaceHolder1_RequiredFieldValidator8"
+                                       id="penaltyMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     Penalty</span>
                                  </div>
@@ -380,8 +399,9 @@
                         </div>
                         <div class="box-footer">
                            <div class="row col-md-12">
-                              <button  type="button"  onclick="validateGoldLoanMaster()"
-                                 class="btn btn-success pull-right margin-r-5">Save</button>                            </div>
+                              <button  type="button"  onclick="return validateGoldLoanMaster()"
+                                 class="btn btn-success pull-right margin-r-5">Save</button>                            
+                           </div>
                         </div>
                      </div>
                      <div class="box box-info"

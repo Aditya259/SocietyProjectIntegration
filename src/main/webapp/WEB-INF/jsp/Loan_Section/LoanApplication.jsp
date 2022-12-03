@@ -139,11 +139,17 @@
              return true;
          }
       </script>
+       <script src="dist/js/customJs.js"></script>
+<script src="dist/js/investmentSection.js"></script>
+<script src="dist/js/loanModule.js"></script>
+<script src="dist/js/goldLoanMaster.js"></script>
+<script src="dist/js/groupMasterUtilsJs.js"></script>
+<script src="dist/js/LoanModuleJs.js"></script>
    </head>
    <body class="skin-blue sidebar-mini"
       style="height: auto; min-height: 100%; background-color: rgba(36, 105, 92, 0.15);"
       cz-shortcut-listen="true"
-      onload="callGetAllMasterData()">
+      onload="callGetAllMasterData();getAllLoanPlanName();getAllItemMasterName();getAllILockerName();getAllPurityMasterName();fetchAllMember()">
       <%
          String status = (String)request.getAttribute("status");
          if(status!=null && "success".equals(status)){
@@ -158,21 +164,10 @@
          %>
       <form method="post"
          action="updateLoan"
-         onsubmit="javascript:return WebForm_OnSubmit();" id="form1"  modelAttribute="updateLoan">
-      <script
-         src="../WebResourcea077.js?d=aKrB3Wg4ktcAdLzfwHNclnzQJginAX-WDxEXiKln398ZfxSpl5en7e6-r-t6qAS--33aKUyvVcAR5D4ulS_TNNrAx-wX18laGa3-ySpD_j01&amp;t=637290976998988531"
-         type="text/javascript"></script>
-      <script
-         src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
-      <script
-         src="../ScriptResource8794.js?d=pl0DaltFZ-nCqZWgxNAqTvBniAbIZw3Iz1bSYE7rwyGDxh1etqVx0WLbkkAE88KWETjjkMMzd-H0InR9BngAQbQfYcq-ENJYTXgawkPhXCZJsAGJSSC1KoJTErXiWh7tEcXp6rwjlayV_PcTh7M4M8rvifeWAlJsyUFxR9AUwO81&amp;t=5334fc78"
-         type="text/javascript"></script>
-      <script
-         src="../ScriptResourced8e7.js?d=uSqqCHFE8MMix38uq8GgGybxYtpH6dYwFMSYHjhHytO5jH1yPS2uWYjdlBZZSuu9t5CBFsRRRI6lEwvTTYPraDdistIqSYPDLCP6VorXyjIpQTji_JKtdkLVZLH_mYVZvHI4YJqUtS662n__8I2atI54HJ4NkBUVIeVAPnAuCTI1&amp;t=2a797f5c"
-         type="text/javascript"></script>
-      <script
-         src="../ScriptResourceb4d6.js?d=KzKHuQVzCI25ZiHK9SA2HZdRjaymXCFpWiizBRMk8lvEiiZsQoLPz0ARKvRH6PmSA3Tt96qvSLsIOMPBDLx_VBsyISpzBQoSBrYr5izAbtKSWsBVrS0pYd7veJqhmzHYrhKgOEJXiOei6ZrcxpAdqnYxCXhjNIW9HOvs7dp7o0kgl18uTZv1SVlBuafpWq2x0&amp;t=2a797f5c"
-         type="text/javascript"></script>
+         id="form1"  
+         name="updateLoanDetails"
+         modelAttribute="updateLoan">
+   
       <script type="text/javascript">
          //<![CDATA[
          function WebForm_OnSubmit() {
@@ -268,11 +263,9 @@
                               <label class="col-sm-4 control-label">Search Member <strong
                                  style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <select name="memberData"
-                                    id="memberData"
-                                    class="form-control select2" style="width: 100%;">
-                                    <option selected="selected" value=""></option>
-                                 </select>
+                                 <select name="searchMemberCode" id="searchMemberCode"
+                                       onchange="javascript:displayMemberDetails()"
+                                       class="form-control select2" style="width: 100%;">
                                  <span
                                     id="ContentPlaceHolder1_RequiredFieldValidatorddlMemberCode"
                                     style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Select
@@ -303,9 +296,9 @@
                                     <div class="input-group-addon">
                                        <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input name="DOB" type="text"
+                                    <input name="dob" type="text"
                                        value="01/08/2022" readonly="readonly"
-                                       id="DOB" class="form-control"
+                                       id="dob" class="form-control"
                                        data-inputmask="&#39;alias&#39;: &#39;dd/mm/yyyy&#39;"
                                        data-mask="" />
                                  </div>
@@ -395,29 +388,11 @@
                                  <strong style="color: Red">*</strong>
                                  </label>
                                  <div class="col-sm-8">
-                                    <%
-                                       List<LoanPlanMaster> allloanPlanMaster = (List<LoanPlanMaster>) request.getAttribute("loanPlanMaster");
-                                       if (allloanPlanMaster != null && !allloanPlanMaster.isEmpty()) {
-                                       %>
-                                    <select name="loanName"
-                                       id="loanName" onchange="callback(this.value)"
-                                       class="form-control" style="width: 100%;">
-                                       <option selected="selected" value="0">Select Loan
-                                          type
-                                       </option>
-                                       <%
-                                          for (LoanPlanMaster loanPlanMaster : allloanPlanMaster) {
-                                          %>
-                                       <option value="<%=loanPlanMaster.getId()%>"><%=loanPlanMaster.getLoanName()%>
-                                          <%=loanPlanMaster.getLoanType()%>
-                                       </option>
-                                       <%
-                                          }
-                                          %>
-                                    </select>
-                                    <%
-                                       }
-                                       %>
+                                   <select name="loanPlanName" id="loanPlanName"
+                                          class="form-control" style="width: 100%;"
+                                          onchange="javascript:displayLoanMasterDetails()">
+                                       </select>
+                                 
                                  </div>
                               </div>
                               <div class="form-group row">
@@ -425,9 +400,9 @@
                                  Type <strong style="color: Red">*</strong>
                                  </label>
                                  <div class="col-sm-8">
-                                    <input name="ROI"
+                                    <input name="loanType"
                                        type="text" readonly="readonly"
-                                       id="ROI" class="form-control"
+                                       id="loanType" class="form-control"
                                        PlaceHolder="Loan Type" />
                                  </div>
                               </div>
@@ -472,10 +447,10 @@
                                     <input name="loanAmount"
                                        type="text"
                                        onkeypress="inputLoanAmount()"
-                                       id="ContentPlaceHolder1_txtLoanAmount"
+                                       id="loanAmount"
                                        class="form-control" PlaceHolder="Enter Loan Amount"
                                        onpaste="return false" autocomplete="off" /> <span
-                                       id="ContentPlaceHolder1_RequiredFieldValidatorLoanAmount"
+                                       id="loanAmountMsg"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                     Loan Amount</span>
                                  </div>
@@ -485,9 +460,9 @@
                                  Type <strong style="color: Red">*</strong>
                                  </label>
                                  <div class="col-sm-8">
-                                    <input name="ROI"
+                                    <input name="ROIType"
                                        type="text" readonly="readonly"
-                                       id="ROI" class="form-control"
+                                       id="ROIType" class="form-control"
                                        PlaceHolder="Enter ROI Type" /> <span
                                        id="ContentPlaceHolder1_RequiredFieldValidatortxtROIType"
                                        style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
@@ -517,7 +492,7 @@
                                  <input name="loanPurpose"
                                     type="text" id="loanPurpose"
                                     class="form-control" PlaceHolder="Enter Loan Purpose" /> <span
-                                    id="ContentPlaceHolder1_RequiredFieldValidatorLoanPurpose"
+                                    id="loanPurposeMsg"
                                     style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
                                  Loan Purpose</span>
                               </div>
@@ -526,45 +501,7 @@
                      </div>
                   </div>
                </div>
-               <div class="col-md-2">
-                  <div class="box box-success">
-                     <div class="box-header with-border">
-                        <h3 class="box-title">Photo</h3>
-                     </div>
-                     <div class="box-body">
-                        <div class="col-md-3">
-                           <div class="form-group">
-                              <div class="text-center">
-                                 <!-- 												<img id="ContentPlaceHolder1_ImageApplicant" -->
-                                 <!-- 													class="profile-user-img" src="dist/img/photo.jpg" -->
-                                 <!-- 													style="width: 110px;" /> -->
-                                 <canvas id="canv1"></canvas>
-                              </div>
-                           </div>
-                           <p>
-                              Filename: <input type="file" multiple="false"
-                                 accept="image/*" id=finput onchange="upload()">
-                           </p>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="box box-success">
-                     <div class="box-header with-border">
-                        <h3 class="box-title">Signature</h3>
-                     </div>
-                     <div class="box-body">
-                        <div class="col-md-3">
-                           <div class="form-group">
-                              <div class="text-center">
-                                 <img id="ContentPlaceHolder1_ImageSignature"
-                                    class="profile-user-img" src="dist/img/sign.jpg"
-                                    style="height: 70px; width: 115px;" />
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+           
             </div>
             <div id="ContentPlaceHolder1_upnlLAD"></div>
             <div class="row">
@@ -587,6 +524,9 @@
                                        id="guarantorCode"
                                        class="form-control"
                                        Placeholder="Enter Guarantor Member 2" />
+                                    <span
+                                    id="guarantorCodeMsg"
+                                    style="color: Red; font-size: X-Small; font-weight: bold; display: none;"></span>
                                  </div>
                               </div>
                               <div class="form-group row">
@@ -671,6 +611,9 @@
                                        id="coApplicantCode"
                                        class="form-control"
                                        Placeholder="Enter Co-Applicant Member Code" />
+                                        <span
+                                    id="coApplicantCodeMsg"
+                                    style="color: Red; font-size: X-Small; font-weight: bold; display: none;"></span>
                                  </div>
                               </div>
                               <div class="form-group row">
@@ -767,14 +710,11 @@
                                  <div class="col-sm-8">
                                     <input name="advisorCode"
                                        type="text"
-                                       onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$txtAdvisorCode\&#39;,\&#39;\&#39;)&#39;, 0)"
-                                       onkeypress="if (WebForm_TextBoxKeyHandler(event) == false) return false;"
-                                       id="ContentPlaceHolder1_txtAdvisorCode"
+                                       id="advisorCode"
                                        class="form-control"
                                        placeholder="Enter Advisor/Collector Code" /> <span
-                                       id="advisorCode"
-                                       style="color: Red; font-size: X-Small; font-weight: bold; display: none;">Enter
-                                    Advisor/Collector Code</span>
+                                       id="advisorCodeMsg"
+                                       style="color: Red; font-size: X-Small; font-weight: bold; display: none;"></span>
                                  </div>
                               </div>
                            </div>
@@ -823,15 +763,12 @@
                      </div>
                      <div class="box-footer">
                         <div class="row col-md-12">
-                           <input type="submit" name="ctl00$ContentPlaceHolder1$btnNew"
-                              value="New" id="ContentPlaceHolder1_btnNew"
-                              class="btn btn-info pull-right margin-r-5" 
-                              onclick="this.disabled = true"/> 
-                           <input
-                              type="submit" name="ctl00$ContentPlaceHolder1$btnSave"
+                           <button
+                              type="button" name="btnSave"
                               value="Save"
-                              id="ContentPlaceHolder1_btnSave"
-                              class="btn btn-success pull-right margin-r-5" />
+                              id="btnSave"
+                              onclick="return validateLoanApplciation()"
+                              class="btn btn-success pull-right margin-r-5">Save</button>
                         </div>
                      </div>
                   </div>

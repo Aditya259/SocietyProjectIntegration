@@ -129,9 +129,12 @@
              return true;
          }
       </script> 
+      <script src="dist/js/LoanModuleJs.js"></script>
    </head>
-   <body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%; background-color: rgba(36, 105, 92, 0.15);" cz-shortcut-listen="true">
-      <form method="post" action="Loan_Plan" id="form1" modelAttribute="loanPlan">
+   <body class="skin-blue sidebar-mini" 
+   onload="getAllLoanMasterData()" 
+   style="height: auto; min-height: 100%; background-color: rgba(36, 105, 92, 0.15);" cz-shortcut-listen="true">
+      <form method="post" action="Loan_Plan" id="form1" name="loanPlan" modelAttribute="loanPlan">
       <div style="height: auto; min-height: 100%; border-radius: 30px; margin: 15px; background: url(dist/img/back.jpg);">
       <!-- Header Start-->
       <jsp:include page="../menu.jsp" />
@@ -162,6 +165,7 @@
              
             }
             %>
+         <input type="hidden" value="Loan" name="type">
          <section class="content">
             <div class="row">
                <div class="col-md-12">
@@ -174,14 +178,14 @@
                            <div class="form-group row">
                               <label class="col-sm-4 control-label">Loan Name <strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <input name="loanName" type="text" id="ContentPlaceHolder1_txtLoanName" class="form-control" PlaceHolder="Enter Loan Name" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidatorLoanName" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Loan Name</span>
+                                 <input name="loanName" type="text" id="loanName" class="form-control" PlaceHolder="Enter Loan Name" />
+                                 <span id="loanNameMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;"></span>
                               </div>
                            </div>
                            <div class="form-group row">
                               <label for="ddlLoanType" class="col-sm-4 control-label">Loan Type <strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <select name="loanType" id="ContentPlaceHolder1_ddlLoanType" class="form-control" style="width: 100%;">
+                                 <select name="loanType" id="loanType" class="form-control" style="width: 100%;">
                                     <option value="Poperty Loan">Poperty Loan</option>
                                     <option value="Personal Loan">Personal Loan</option>
                                     <option value="Vehicle Loan">Vehicle Loan</option>
@@ -191,37 +195,41 @@
                                     <option value="Loan Against Policy">Loan Against Policy</option>
                                     <option value="Others Loan">Others Loan</option>
                                  </select>
+                                 <span id="loanTypeMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;"></span>
                               </div>
                            </div>
                            <div class="form-group row">
                               <label for="ddlEmiCollection" class="col-sm-4 control-label">EMI Mode<strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <select name="emiCollection" id="ContentPlaceHolder1_ddlEmiCollection" class="form-control" style="width: 100%;">
+                                 <select name="emiCollection" id="emiCollection" class="form-control" style="width: 100%;">
                                     <option value="Dly.">Daily</option>
                                     <option value="Wly.">Weekly</option>
                                     <option value="Fly.">Fortnightly</option>
                                     <option value="Mly.">Monthly</option>
                                     <option value="Qly.">Quarterly</option>
                                  </select>
+                                  <span id="emiCollectionMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;"></span>
                               </div>
                            </div>
                            <div class="form-group row">
                               <label for="ddlRoiType" class="col-sm-4 control-label">ROI Type <strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <select name="roiType" onchange="" id="ContentPlaceHolder1_ddlRoiType" class="form-control" style="width: 100%;">
+                                 <select name="roiType" onchange="" id="roiType" class="form-control" style="width: 100%;">
                                     <option selected="selected" value="Flat Interest">Flat Interest</option>
                                     <option value="Reducing interest">Reducing interest</option>
                                     <option value="Rule 78">Rule 78</option>
                                  </select>
+                                   <span id="roiTypeMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;"></span>
                               </div>
                            </div>
                            <div class="form-group row">
                               <label for="ddlEmiType" class="col-sm-4 control-label">EMI Type <strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <select name="emiType" id="ContentPlaceHolder1_ddlEmiType" disabled="disabled" class="aspNetDisabled" class="form-control" style="width: 100%;">
+                                 <select name="emiType" id="emiType" disabled="disabled" class="aspNetDisabled" class="form-control" style="width: 100%;">
                                     <option selected="selected" value="Regular">Regular</option>
                                     <option value="Irregular">Irregular</option>
                                  </select>
+                                 <span id="emiTypeMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;"></span>
                               </div>
                            </div>
                         </div>
@@ -229,36 +237,36 @@
                            <div class="form-group row">
                               <label class="col-sm-4 control-label">Min Age <strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <input name="minAge" type="text" id="ContentPlaceHolder1_txtMinAge" class="form-control" onpaste="return false" onkeypress="return isNumberOnlyKey(this, event);" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidator1" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Min Age</span>
+                                 <input name="minAge" type="text" id="minAge" class="form-control" onpaste="return false" onkeypress="return isNumberOnlyKey(this, event);" />
+                                 <span id="minAgeMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Min Age</span>
                               </div>
                            </div>
                            <div class="form-group row">
                               <label for="txtLoanName" class="col-sm-4 control-label">Max Age <strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <input name="maxAge" type="text" id="ContentPlaceHolder1_txtMaxAge" class="form-control" onpaste="return false" onkeypress="return isNumberOnlyKey(this, event);" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidator2" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Max Age</span>
+                                 <input name="maxAge" type="text" id="maxAge" class="form-control" onpaste="return false" onkeypress="return isNumberOnlyKey(this, event);" />
+                                 <span id="maxAgeMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Max Age</span>
                               </div>
                            </div>
                            <div class="form-group row">
                               <label class="col-sm-4 control-label">Min Amt.<strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <input name="minAmount" type="text" id="ContentPlaceHolder1_txtMinAmount" class="form-control" onpaste="return false" onkeypress="return isNumberOnlyKey(this, event);" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidator3" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Min Amount</span>
+                                 <input name="minAmount" type="text" id="minAmount" class="form-control" onpaste="return false" onkeypress="return isNumberOnlyKey(this, event);" />
+                                 <span id="minAmountMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Min Amount</span>
                               </div>
                            </div>
                            <div class="form-group row">
                               <label class="col-sm-4 control-label">Max Amt.<strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <input name="maxAmount" type="text" id="ContentPlaceHolder1_txtMaxAmount" class="form-control" onpaste="return false" onkeypress="return isNumberOnlyKey(this, event);" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidator4" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Max Amount</span>
+                                 <input name="maxAmount" type="text" id="maxAmount" class="form-control" onpaste="return false" onkeypress="return isNumberOnlyKey(this, event);" />
+                                 <span id="maxAmountMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Max Amount</span>
                               </div>
                            </div>
                            <div class="form-group row">
                               <label class="col-sm-4 control-label">Plan Status <strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
                                  <label class="switch">
-                                 <input name="planStatus" id="ContentPlaceHolder1_chkPlanStatus"  type="checkbox"  checked="checked" />
+                                 <input name="planStatus" id="planStatus"  type="checkbox"  checked="checked" />
                                  <span class="slider round"></span>
                                  </label>
                               </div>
@@ -268,28 +276,28 @@
                            <div class="form-group row">
                               <label class="col-sm-4 control-label">Min Term <strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <input name="minTerm" type="text" id="ContentPlaceHolder1_txtMinTerm" class="form-control" onpaste="return false" onkeypress="return isNumberOnlyKey(this, event);" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidator7" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Min Term</span>
+                                 <input name="minTerm" type="text" id="minTerm" class="form-control" onpaste="return false" onkeypress="return isNumberOnlyKey(this, event);" />
+                                 <span id="minTermMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Min Term</span>
                               </div>
                            </div>
                            <div class="form-group row">
                               <label class="col-sm-4 control-label">Max Term <strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <input name="maxTerm" type="text" id="ContentPlaceHolder1_txtMaxTerm" class="form-control" onpaste="return false" onkeypress="return isNumberOnlyKey(this, event);" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidator6" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Max Term</span>
+                                 <input name="maxTerm" type="text" id="maxTerm" class="form-control" onpaste="return false" onkeypress="return isNumberOnlyKey(this, event);" />
+                                 <span id="maxTermMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Max Term</span>
                               </div>
                            </div>
                            <div class="form-group row">
                               <label class="col-sm-4 control-label">ROI (% p.a.)<strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <input name="ROI" type="text" id="ContentPlaceHolder1_txtROI" class="form-control" onpaste="return false" onkeypress="return isNumberKey(this, event);" autocomplete="off" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidator5" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter ROI (% p.a.)</span>
+                                 <input name="roi" type="text" id="roi" class="form-control" onpaste="return false" onkeypress="return isNumberKey(this, event);" autocomplete="off" />
+                                 <span id="roiMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter ROI (% p.a.)</span>
                               </div>
                            </div>
                            <div class="form-group row">
                               <label for="ddlRoiType" class="col-sm-4 control-label">Security<strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <select name="securityType" id="ContentPlaceHolder1_ddlSecurityType" class="form-control" style="width: 100%;">
+                                 <select name="securityType" id="securityType" class="form-control" style="width: 100%;">
                                     <option value="PLEDGE">PLEDGE</option>
                                     <option value="MORTGAGE">MORTGAGE</option>
                                     <option value="HYPOTHECATION">HYPOTHECATION</option>
@@ -309,8 +317,8 @@
                            <div class="form-group row">
                               <label for="txtProcessingFee" class="col-sm-4 control-label">Proc. Fee(%)<strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <input name="processingFee" type="text" id="ContentPlaceHolder1_txtProcessingFee" class="form-control" onpaste="return false" onkeypress="return isNumberKey(this, event);" autocomplete="off" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidatorProcessingFee" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Processing Fee (%)</span>
+                                 <input name="processingFee" type="text" id="processingFee" class="form-control" onpaste="return false" onkeypress="return isNumberKey(this, event);" autocomplete="off" />
+                                 <span id="processingFeeMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Processing Fee (%)</span>
                               </div>
                            </div>
                         </div>
@@ -318,8 +326,8 @@
                            <div class="form-group row">
                               <label for="txtLegalAmt" class="col-sm-4 control-label">Legal Fee(%)<strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <input name="legalAmt" type="text" id="ContentPlaceHolder1_txtLegalAmt" class="form-control" onpaste="return false" onkeypress="return isNumberKey(this, event);" autocomplete="off" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidatorLegalAmt" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Legal Fee (%)</span>
+                                 <input name="legalAmt" type="text" id="legalAmt" class="form-control" onpaste="return false" onkeypress="return isNumberKey(this, event);" autocomplete="off" />
+                                 <span id="legalAmtMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Legal Fee (%)</span>
                               </div>
                            </div>
                         </div>
@@ -327,8 +335,8 @@
                            <div class="form-group row">
                               <label for="txtGST" class="col-sm-4 control-label">GST (%) <strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <input name="GST" type="text" id="ContentPlaceHolder1_txtGST" class="form-control" onpaste="return false" onkeypress="return isNumberKey(this, event);" autocomplete="off" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidatorGST" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter GST (%)</span>
+                                 <input name="gst" type="text" id="gst" class="form-control" onpaste="return false" onkeypress="return isNumberKey(this, event);" autocomplete="off" />
+                                 <span id="gstMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter GST (%)</span>
                               </div>
                            </div>
                         </div>
@@ -336,8 +344,8 @@
                            <div class="form-group row">
                               <label for="txtInsuranceAmt" class="col-sm-4 control-label">Insur. Fee(%)<strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <input name="insuranceAmt" type="text" id="ContentPlaceHolder1_txtInsuranceAmt" class="form-control" onpaste="return false" onkeypress="return isNumberKey(this, event);" autocomplete="off" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidatorInsuranceAmt" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Insurance Fee (%)</span>
+                                 <input name="insuranceAmt" type="text" id="insuranceAmt" class="form-control" onpaste="return false" onkeypress="return isNumberKey(this, event);" autocomplete="off" />
+                                 <span id="insuranceAmtMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Insurance Fee (%)</span>
                               </div>
                            </div>
                         </div>
@@ -345,8 +353,8 @@
                            <div class="form-group row">
                               <label class="col-sm-4 control-label">ValuerFee(%)<strong style="color: Red">*</strong></label>
                               <div class="col-sm-8">
-                                 <input name="valuerfees" type="text" id="ContentPlaceHolder1_txtVfees" class="form-control" onpaste="return false" onkeypress="return isNumberKey(this, event);" autocomplete="off" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidator9" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Valuer Fee (%)</span>
+                                 <input name="valuerfees" type="text" id="valuerFees" class="form-control" onpaste="return false" onkeypress="return isNumberKey(this, event);" autocomplete="off" />
+                                 <span id="valuerFeesMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Valuer Fee (%)</span>
                               </div>
                            </div>
                         </div>
@@ -361,8 +369,8 @@
                            <div class="form-group row">
                               <label class="col-sm-8 control-label">Grace Period Days<strong style="color: Red">*</strong></label>
                               <div class="col-sm-4">
-                                 <input name="gracePeriodDays" type="text" id="ContentPlaceHolder1_txtGracePeriodDays" class="form-control" onpaste="return false" onkeypress="return isNumberOnlyKey(this, event);" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidatorGracePeriodDays" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Grace Period Days</span>
+                                 <input name="gracePeriodDays" type="text" id="gracePeriodDays" class="form-control" onpaste="return false" onkeypress="return isNumberOnlyKey(this, event);" />
+                                 <span id="gracePeriodDaysMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Grace Period Days</span>
                               </div>
                            </div>
                         </div>
@@ -370,7 +378,7 @@
                            <div class="form-group row">
                               <label class="col-sm-6 control-label">Penulty Type <strong style="color: Red">*</strong></label>
                               <div class="col-sm-6">
-                                 <select name="penaltyType" id="ContentPlaceHolder1_ddlPenaltyType" class="form-control" style="width: 100%;">
+                                 <select name="penaltyType" id="penaltyType" class="form-control" style="width: 100%;">
                                     <option value="Percentage">Percentage</option>
                                     <option value="Amount">Amount</option>
                                  </select>
@@ -381,15 +389,15 @@
                            <div class="form-group row">
                               <label class="col-sm-7 control-label">Penalty(p.m.) <strong style="color: Red">*</strong></label>
                               <div class="col-sm-5">
-                                 <input name="penalty" type="text" id="ContentPlaceHolder1_txtPenalty" class="form-control" onpaste="return false" onkeypress="return isNumberKey(this, event);" autocomplete="off" />
-                                 <span id="ContentPlaceHolder1_RequiredFieldValidator8" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Penalty</span>
+                                 <input name="penalty" type="text" id="penalty" class="form-control" onpaste="return false" onkeypress="return isNumberKey(this, event);" autocomplete="off" />
+                                 <span id="penaltyMsg" style="color:Red;font-size:X-Small;font-weight:bold;display:none;">Enter Penalty</span>
                               </div>
                            </div>
                         </div>
                      </div>
                      <div class="box-footer">
                         <div class="row col-md-12">
-                           <input type="submit" name="ctl00$ContentPlaceHolder1$btnSave" value="Save" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ContentPlaceHolder1$btnSave&quot;, &quot;&quot;, true, &quot;A&quot;, &quot;&quot;, false, false))" id="ContentPlaceHolder1_btnSave" class="btn btn-success pull-right margin-r-5" />
+                           <button type="button" name="ctl00$ContentPlaceHolder1$btnSave" value="Save" onclick="return validateInputField()"  id="ContentPlaceHolder1_btnSave" class="btn btn-success pull-right margin-r-5">Save</button>
                         </div>
                      </div>
                   </div>
@@ -397,7 +405,7 @@
                      <div class="box-body">
                         <div class="clearfix margin-bottom-10"></div>
                         <div>
-                           <table cellspacing="0" cellpadding="3" rules="all" class="display nowrap table table-hover table-striped table-bordered" border="1" id="ContentPlaceHolder1_gdvData" style="width:100%;border-collapse:collapse;">
+                           <table cellspacing="0" cellpadding="3" rules="all" class="display nowrap table table-hover table-striped table-bordered" border="1" id="ContentPlaceHolder1_gdvDataLoan" style="width:100%;border-collapse:collapse;">
                               <caption>
                                  Plan Data List
                               </caption>

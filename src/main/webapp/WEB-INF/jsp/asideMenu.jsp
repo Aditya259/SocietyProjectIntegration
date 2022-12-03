@@ -7,9 +7,6 @@
             EQFI
          </div>
       </div>
-      <!-- search form -->
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu tree" data-widget="tree">
          <li class="active">
             <a href="Home.html">
@@ -128,49 +125,49 @@
                   class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span></a>
             <ul class="treeview-menu">
                <li><a href="LoanPlan9d5e"><i class="fa fa-circle-o"></i>Gold Plan Creation</a></li>
-               <li><a href="GoldLoanMaster.html"><i class="fa fa-circle-o"></i>Gold Loan Master</a></li>
-               <li><a href="GoldLoanApplication7475.html?Type=Application"><i class="fa fa-circle-o"></i>Gold Loan
+               <li><a href="goldLoanMaster"><i class="fa fa-circle-o"></i>Gold Loan Master</a></li>
+               <li><a href="goldLoanApplication7475?Type=Application"><i class="fa fa-circle-o"></i>Gold Loan
                      Application</a></li>
-               <li><a href="GoldLoanApplication9c5a.html?Type=Approval"><i class="fa fa-circle-o"></i>Gold Loan
+               <li><a href="goldLoanApplication9c5a?Type=Approval"><i class="fa fa-circle-o"></i>Gold Loan
                      Authorized</a></li>
-               <li><a href="GoldLoanApplicationf780.html?Type=Payment"><i class="fa fa-circle-o"></i>Loan Payment
+               <li><a href="goldLoanApplicationf780?Type=Payment"><i class="fa fa-circle-o"></i>Loan Payment
                      Section</a></li>
-               <li><a href="LoanRepayment9d5e.html?Type=Gold"><i class="fa fa-circle-o"></i>Regular Emi Re-payment</a>
+               <li><a href="loanRepayment9d5e?Type=Gold"><i class="fa fa-circle-o"></i>Regular Emi Re-payment</a>
                </li>
-               <li><a href="IrregularEMIPaymentEntry9d5e.html?Type=Gold"><i class="fa fa-circle-o"></i>Irregular Emi
+               <li><a href="irregularEMIPaymentEntry9d5e?Type=Gold"><i class="fa fa-circle-o"></i>Irregular Emi
                      Re-payment</a></li>
-               <li><a href="RegularLoanStatement9d5e.html?Type=Gold"><i class="fa fa-circle-o"></i>Regular Loan
+               <li><a href="regularLoanStatement9d5e?Type=Gold"><i class="fa fa-circle-o"></i>Regular Loan
                      Statement</a></li>
-               <li><a href="IrregularLoanStatement9d5e.html?Type=Gold"><i class="fa fa-circle-o"></i>Irregular Loan
+               <li><a href="irregularLoanStatement9d5e?Type=Gold"><i class="fa fa-circle-o"></i>Irregular Loan
                      Statement</a></li>
-               <li><a href="GoldLoanDocumentPrint.html"><i class="fa fa-circle-o"></i>Loan Documents Print</a></li>
-               <li><a href="LoanPreSettlement9d5e.html?Type=Gold"><i class="fa fa-circle-o"></i>Pre Settlement</a></li>
-               <li><a href="ClosedLoanReport9d5e.html?Type=Gold"><i class="fa fa-circle-o"></i>Closed loan Details</a>
+               <li><a href="goldLoanDocumentPrint"><i class="fa fa-circle-o"></i>Loan Documents Print</a></li>
+               <li><a href="loanPreSettlement9d5e?Type=Gold"><i class="fa fa-circle-o"></i>Pre Settlement</a></li>
+               <li><a href="closedLoanReport9d5e?Type=Gold"><i class="fa fa-circle-o"></i>Closed loan Details</a>
                </li>
-               <li><a href="LoanNoc9d5e.html?Type=Gold"><i class="fa fa-circle-o"></i>NOC Certificate</a></li>
-               <li><a href="GoldLoanSearch.html"><i class="fa fa-circle-o"></i>Search Loan</a></li>
+               <li><a href="loanNoc9d5e?Type=Gold"><i class="fa fa-circle-o"></i>NOC Certificate</a></li>
+               <li><a href="goldLoanSearch"><i class="fa fa-circle-o"></i>Search Loan</a></li>
             </ul>
          </li>
          <li class="treeview">
             <a href='#'><img src="dist/img/icon/ico-16.png" style="margin-right: 5px;" /><span>Group Loan</span><span
                   class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span></a>
             <ul class="treeview-menu">
-               <li><a href="LoanPlan5c22.html?Type=Group"><i class="fa fa-circle-o"></i>Group Plan Creation</a></li>
-               <li><a href="LoanGroupMaster.html"><i class="fa fa-circle-o"></i>Group Master</a></li>
-               <li><a href="GroupLoanApplication.html"><i class="fa fa-circle-o"></i>Group Loan Application</a></li>
-               <li><a href="GroupLoanApproval9c5a.html?Type=Approval"><i class="fa fa-circle-o"></i>Group Loan
+               <li><a href="LoanPlan5c22?Type=Group"><i class="fa fa-circle-o"></i>Group Plan Creation</a></li>
+               <li><a href="LoanGroupMaster"><i class="fa fa-circle-o"></i>Group Master</a></li>
+               <li><a href="GroupLoanApplication"><i class="fa fa-circle-o"></i>Group Loan Application</a></li>
+               <li><a href="GroupLoanApproval9c5a?Type=Approval"><i class="fa fa-circle-o"></i>Group Loan
                      Authorized</a></li>
-               <li><a href="GroupLoanApprovalf780.html?Type=Payment"><i class="fa fa-circle-o"></i>Loan Payment
+               <li><a href="GroupLoanApprovalf780?Type=Payment"><i class="fa fa-circle-o"></i>Loan Payment
                      Section</a></li>
-               <li><a href="LoanRepayment5c22.html?Type=Group"><i class="fa fa-circle-o"></i>Emi Re-payment</a></li>
-               <li><a href="GlDailyRepaymentSheet.html"><i class="fa fa-circle-o"></i>Daily Repayment Sheet</a></li>
-               <li><a href="DemandSheet.html"><i class="fa fa-circle-o"></i>Demand Sheet</a></li>
-               <li><a href="RegularLoanStatement5c22.html?Type=Group"><i class="fa fa-circle-o"></i>Loan Statement</a>
+               <li><a href="LoanRepayment5c22?Type=Group"><i class="fa fa-circle-o"></i>Emi Re-payment</a></li>
+               <li><a href="GlDailyRepaymentSheet"><i class="fa fa-circle-o"></i>Daily Repayment Sheet</a></li>
+               <li><a href="DemandSheet"><i class="fa fa-circle-o"></i>Demand Sheet</a></li>
+               <li><a href="RegularLoanStatement5c22?Type=Group"><i class="fa fa-circle-o"></i>Loan Statement</a>
                </li>
-               <li><a href="LoanPreSettlement5c22.html?Type=Group"><i class="fa fa-circle-o"></i>Pre Settlement</a></li>
-               <li><a href="ClosedLoanReportf159.html?Type=Normal"><i class="fa fa-circle-o"></i>Closed loan Details</a>
+               <li><a href="LoanPreSettlement5c22?Type=Group"><i class="fa fa-circle-o"></i>Pre Settlement</a></li>
+               <li><a href="ClosedLoanReportf159?Type=Normal"><i class="fa fa-circle-o"></i>Closed loan Details</a>
                </li>
-               <li><a href="GroupLoanSearch.html"><i class="fa fa-circle-o"></i>Search Loan</a></li>
+               <li><a href="GroupLoanSearch"><i class="fa fa-circle-o"></i>Search Loan</a></li>
             </ul>
          </li>
          <li class="treeview">

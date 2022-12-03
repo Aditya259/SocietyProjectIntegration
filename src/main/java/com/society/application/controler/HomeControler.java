@@ -176,16 +176,7 @@ public class HomeControler {
 		return "Loan_Section/LoanPlan";
 	}
 
-	@PostMapping("Loan_Plan")
-	public String LoanPlan(@ModelAttribute("loanPlan") LoanPlanMaster loanPlanMaster, Model model) {
-		LoanPlanMaster loanPlanMasterSavedData = loanPlanMasterRepo.save(loanPlanMaster);
-		if(loanPlanMasterSavedData != null) {
-			model.addAttribute("status", "success");
-		}else {
-			model.addAttribute("status", "error");
-		}
-		return "Loan_Section/LoanPlan";
-	}
+	
 
 	@GetMapping("/LoanCalculator")
 	public String LoanCalculator() {
@@ -891,17 +882,6 @@ public class HomeControler {
 		return "Gold_Loan/Gold_LoanPlan";
 	}
 
-	@PostMapping("updateLoan")
-	public String updateLoan(@ModelAttribute("updateLoan") LoanPlanMaster loanPlanMaster, Model model) {
-		//loanPlanMasterRepo.save(loanPlanMaster);
-		//int i = 0;
-		//loanPlanMaster.setInsuranceAmt(i);
-		loanPlanMasterRepo.save(loanPlanMaster);
-		List<LoanPlanMaster> loanPlanMasterAllData = loanPlanMasterRepo.findAll();
-		model.addAttribute("loanPlanMaster", loanPlanMasterAllData);
-		model.addAttribute("status", "success");
-		return "Loan_Section/LoanApplication";
-	}
 	
 	
 	@PostMapping("todaysRateMaster")
@@ -911,10 +891,7 @@ public class HomeControler {
 		return "Gold_Loan/goldLoanMaster";
 	}
 
-	@GetMapping("/goldLoanMaster")
-	public String goldLoanMaster() {
-		return "Gold_Loan/goldLoanMaster";
-	}
+	
 
 	@PostMapping("goldLoanPlan")
 	public String goldLoanPlan(@ModelAttribute("goldLoanPlan") GoldLoanPlanMaster goldLoanPlanMaster, Model model) {
@@ -934,9 +911,7 @@ public class HomeControler {
 	@PostMapping("getLoanDetails")
 	@ResponseBody
 	public LoanPlanMaster getLoanDetails(@RequestBody GenericGetById id) {
-		System.out.println("In getLoanDetails");
 		Optional<LoanPlanMaster> loanPlanMaster = loanPlanMasterRepo.findById(Integer.parseInt(id.getId()));
-		System.out.println("loanPlanMaster>>>" + loanPlanMaster.get().getValuerfees());
 		return loanPlanMaster.get();
 	}
 
