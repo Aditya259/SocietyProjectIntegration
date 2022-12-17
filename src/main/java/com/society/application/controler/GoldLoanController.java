@@ -3,7 +3,6 @@ package com.society.application.controler;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import com.society.application.model.GenericGetById;
 import com.society.application.model.ItemMaster;
 import com.society.application.model.Loan;
 import com.society.application.model.LoanMaster;
-import com.society.application.model.LoanPlanMaster;
 import com.society.application.model.LockerMaster;
 import com.society.application.model.Member;
 import com.society.application.model.PurityMaster;
@@ -178,7 +176,7 @@ public class GoldLoanController {
 		return getAllRates;
 	}
 
-	// GoldLoanApplication7475
+	
 	@GetMapping("/goldLoanApplication7475")
 	public String goldLoanApplication7475(Model model) {
 		return "Gold_Loan/GoldLoanApplication7475";
