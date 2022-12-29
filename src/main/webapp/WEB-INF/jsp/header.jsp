@@ -159,4 +159,6 @@ input:checked+.slider:before {
 <script src="dist/js/goldLoanMaster.js"></script>
 <script src="dist/js/groupMasterUtilsJs.js"></script>
 <script src="dist/js/LoanModuleJs.js"></script>
+<script src="dist/js/payroll.js"></script>
+<script src="dist/js/config.js"></script>
 </head>

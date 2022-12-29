@@ -4,11 +4,14 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +53,8 @@ import com.society.application.model.ShareAllocationMaster;
 import com.society.application.model.ShareTransferDto;
 import com.society.application.model.StateMaster;
 import com.society.application.model.TodaysRateMaster;
+import com.society.application.model.UserMaster;
+import com.society.application.model.UserToServiceMap;
 import com.society.application.repository.AddInvestmentRepo;
 import com.society.application.repository.AdvisorCollectorDetailsRepo;
 import com.society.application.repository.AdvisorRepo;
@@ -73,6 +78,8 @@ import com.society.application.repository.RelativeRelationMasterRepo;
 import com.society.application.repository.ShareAllocationMasterRepo;
 import com.society.application.repository.StateMasterRepo;
 import com.society.application.repository.TodaysRateMasterRepo;
+import com.society.application.repository.UserMasterRepo;
+import com.society.application.repository.UserToServiceMapRepo;
 
 import ch.qos.logback.core.rolling.helper.IntegerTokenConverter;
 
@@ -90,6 +97,9 @@ public class HomeControler {
 
 	@Autowired
 	StateMasterRepo stateMasterRepo;
+	
+	@Autowired
+	UserToServiceMapRepo userToServiceMapRepo;
 
 	@Autowired
 	MartialStatusRepo martialStatusRepo;
@@ -129,6 +139,9 @@ public class HomeControler {
 
 	@Autowired
 	LoginRepo loginRepo;
+	
+	@Autowired
+	UserMasterRepo userMasterRepo;
 
 	@Autowired
 	DailyDepositeRepo dailyDepositeRepo;
@@ -376,13 +389,33 @@ public class HomeControler {
 		return memberRepo.findAll();
 	}
 
+
+	
 	@PostMapping("/loginValidate")
-	public String loginValidate(@ModelAttribute("user") Login login, Model model) {
-		if (login.getTxtusername() != null && login.getTxtPassword() != null) {
-			List<Login> loginAll = loginRepo.findAll();
-			List<Login> loginData = loginAll.stream().filter(p -> p.getTxtusername().equals(login.getTxtusername())
-					&& p.getTxtPassword().equals(login.getTxtPassword())).collect(Collectors.toList());
+	public String loginValidate(@ModelAttribute("user") UserMaster login, Model model,HttpSession session) {
+		if (login.getUserId() != null && login.getPassword() != null) {
+			List<UserMaster> loginAll = userMasterRepo.findAll();
+			List<UserMaster> loginData = loginAll.stream().filter(p -> p.getUserId().equals(login.getUserId())
+					&& p.getPassword().equals(login.getPassword())).collect(Collectors.toList());
 			if (!loginData.isEmpty()) {
+				List<UserToServiceMap> userMap =  userToServiceMapRepo.getDataByuserId(login.getUserId());
+			//	String[] str = userMap.getService().split(",");
+				//System.err.println(Arrays.asList(str));
+				List<String> myList = new ArrayList<String>(); 
+
+				for(UserToServiceMap usr : userMap) {
+					//myList =new ArrayList<String>(Arrays.asList(usrMap.getService().split(",")));
+					String[] str = usr.getService().split(",");
+					if(str!=null) {
+					for(int i = 0;i<str.length;i++) {
+						myList.add(str[i]);
+
+					}
+					}
+				}
+				//System.err.println("myList = "+myList);
+
+			    session.setAttribute("user", myList);
 				return "member/AddMember";
 			} else {
 				model.addAttribute("msg", "Invalid username or password");

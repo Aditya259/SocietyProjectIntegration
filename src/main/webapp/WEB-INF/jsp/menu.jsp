@@ -19,15 +19,15 @@
                     <a class="dropdown-toggle b-1" data-toggle="dropdown" href="#" aria-expanded="false">Configuration
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="CompanyDetails.html">Company Setting</a></li>
-                        <li><a href="AddFinancialMaster.html">Add FY Master</a></li>
-                        <li><a href="Branch.html">Branch Creation</a></li>
-                        <li><a href="AddBankAccount.html">Bank Master</a></li>
-                        <li><a href="CodeSetting.html">Code Setting</a></li>
-                        <li><a href="DirectorDetail.html">Add Director/Promoter</a></li>
-                        <li><a href="UserCreate.html">User Creation</a></li>
-                        <li><a href="UserMenuAccess.html">User Menu Access</a></li>
-                        <li><a href="UserActivityReport.html">User Activity Report</a></li>
+                        <li><a href="CompanyDetails">Company Setting</a></li>
+                        <li><a href="FYMater">Add FY Master</a></li>
+                        <li><a href="branchMaster">Branch Creation</a></li>
+                        <li><a href="AddBankAccount">Bank Master</a></li>
+                        <li><a href="CodeSetting">Code Setting</a></li>
+                        <li><a href="DirectorDetail">Add Director/Promoter</a></li>
+                        <li><a href="UserCreate">User Creation</a></li>
+                        <li><a href="UserMenuAccess">User Menu Access</a></li>
+                        <li><a href="UserActivityReport">User Activity Report</a></li>
 
                     </ul>
                 </li>

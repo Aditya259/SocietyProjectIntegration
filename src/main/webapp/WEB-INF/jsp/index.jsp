@@ -64,7 +64,7 @@
                                  </h2>
                                  <div class="form-group">
                                     <div class="fxt-transformY-50 fxt-transition-delay-1">
-                                       <input name="txtusername" type="text" id="txtusername" class="form-control"
+                                       <input name="userId" type="text" id="userId" class="form-control"
                                           placeholder="User ID" />
                                        <span id="rfvloginuser"
                                           style="color:Red;font-family:Papyrus;font-size:X-Small;font-weight:bold;display:none;">Enter
@@ -74,7 +74,7 @@
                                  </div>
                                  <div class="form-group">
                                     <div class="fxt-transformY-50 fxt-transition-delay-2">
-                                       <input name="txtPassword" type="password" id="txtPassword" class="form-control"
+                                       <input name="password" type="password" id="password" class="form-control"
                                           placeholder="Password" />
                                        <span id="rfvloginPassword"
                                           style="color:Red;font-family:Papyrus;font-size:X-Small;font-weight:bold;display:none;">Enter
@@ -98,7 +98,7 @@
                                              <div class="fxt-transformY-50 fxt-transition-delay-3">
                                                 <div class="fxt-content-between">
                                                    <input type="submit" name="btnLogin" value="Login"
-                                                      onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;btnLogin&quot;, &quot;&quot;, true, &quot;A&quot;, &quot;&quot;, false, false))"
+                                                      
                                                       id="btnLogin" class="fxt-btn-fill" />
                                                 </div>
                                              </div>
